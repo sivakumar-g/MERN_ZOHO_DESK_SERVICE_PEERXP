@@ -35,15 +35,16 @@ function Signup(props) {
             name: Name,
         }
       const registerdata = dispatch(registerUser(dataToSubmit))
-           .then(response => {
+         /*  .then(response => {
                 if (response.payload.success) {
                     alert("Congratulations! Registeration Succesfull");
                     props.history.push("/login")
                 } else {
                     alert("Failed to sign up")
                 }
-            }) //then
-            
+            }) */
+            //then
+            alert('Registration Successfull'); props.history.push('/sign-in');    
         
     }
 
