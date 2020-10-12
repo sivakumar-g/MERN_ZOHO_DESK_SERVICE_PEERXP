@@ -1,8 +1,8 @@
 import React, { Component ,useState} from "react";
-import Axios from 'axios'
+import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { loginUser,registerUser } from '../actions/users';
+import { loginUser,registerUser, registeruseraction } from '../actions/users';
 
 
 function Signup(props) {
@@ -34,17 +34,22 @@ function Signup(props) {
             password: Password,
             name: Name,
         }
-      const registerdata = dispatch(registerUser(dataToSubmit))
-         /*  .then(response => {
-                if (response.payload.success) {
-                    alert("Congratulations! Registeration Succesfull");
-                    props.history.push("/login")
-                } else {
-                    alert("Failed to sign up")
-                }
-            }) */
-            //then
-            alert('Registration Successfull'); props.history.push('/sign-in');    
+       /*var registerdata = null; 
+       registerdata = dispatch(registerUser(dataToSubmit))
+       */
+      axios.post('http://localhost:4000/users/register', dataToSubmit)
+      .then(res=>
+          {console.log(res.data.success);
+              dispatch(registeruseraction(res.data));
+              if (res.data) {
+               alert('Sign UP Successfull');
+               props.history.push('/sign-up')
+           } else {
+               alert('Error˝')
+           }
+
+          })
+      
         
     }
 
@@ -81,3 +86,15 @@ function Signup(props) {
     );
 }
 export default withRouter(Signup)
+
+
+
+
+
+
+
+
+
+
+
+

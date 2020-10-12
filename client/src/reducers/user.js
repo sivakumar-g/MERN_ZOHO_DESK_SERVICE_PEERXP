@@ -8,17 +8,17 @@ export default function (state = {}, action) {
      
         case ACTION_TYPES.REGISTER_USER:
             console.log(action.type);   
-        console.log(action.payload);
-           
+        console.log(action.payload);   
             return { ...state, register: action.payload }
             break;
 
             case ACTION_TYPES.LOGIN_USER:
                 console.log(action.type);   
                 console.log(action.payload);
-                   
-            return { ...state, loginSuccess : action.payload }
-                break;
+                 return { ...state, loginSuccess : action.payload }
+            console.log(action.payload);
+        
+            break;
        
                 
      /*   case AUTH_USER:

@@ -1,8 +1,9 @@
 import React, { Component,useState } from "react";
-import Axios from 'axios'
+import axios from 'axios'
 import { useDispatch } from 'react-redux';
-import { loginUser,registerUser } from '../actions/users';
+import { ACTION_TYPES, loginUser,registerUser,loginuseraction } from '../actions/users';
 import user from "../reducers/user";
+import { connect ,useSelector} from "react-redux";
 
 
 
@@ -27,23 +28,25 @@ const onSubmitHandler = (event) => {
         email: Email,
         password: Password
     }
-
-   const logindata= dispatch(loginUser(dataToSubmit))
-      /* .then(response => {
-            if (response.payload.success) {
+ 
+       axios.post('http://localhost:4000/users/authenticate', dataToSubmit)
+       .then(res=>
+           {console.log(res.data.success);
+               dispatch(loginuseraction(res.data));
+               if (res.data) {
                 alert('Logged In Successfull');
-                props.history.push('/')
+                console.log(res.data.token);
+                localStorage.setItem('token',res.data.token);
+                props.history.push('/ticket')
             } else {
                 alert('Error˝')
             }
-        })
-*/ 
-alert('Logged In Successfull'); props.history.push('/ticket');
+
+           })
+
+
 
 }
-
-
-
         return (
             <form  onSubmit={onSubmitHandler}>
                 <h3>Sign In</h3>
@@ -70,4 +73,65 @@ alert('Logged In Successfull'); props.history.push('/ticket');
         );
     }
 
-    export default Login
+    
+const mapStateToProps = state => ({
+    login : state.user.loginSuccess
+})
+
+const mapActionToProps = {
+loginaction : loginuseraction
+}
+
+    export default connect(mapStateToProps, mapActionToProps)(Login)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //props.loginaction(dataToSubmit)
+  /*  var logindata = null;
+    logindata= dispatch(loginUser(dataToSubmit)).then(response=>
+       { console.log(response)});
+*/

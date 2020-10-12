@@ -118,7 +118,7 @@ router.post('/ticket',authenticateJWT,(req, res ) => {
 
 // Protected API END POINT only for signed in users tp manage their tickets
 
-router.get('/gettickets',authenticateJWT,(req,res)=>{
+router.get('/get-tickets',authenticateJWT,(req,res)=>{
 //api call using req.email to zoho desk api
   res.json("zoho desk tickets");
 });
