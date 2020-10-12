@@ -41,7 +41,7 @@ return(  <Router>
   <div className="App">
     <nav className="navbar navbar-expand-lg navbar-light fixed-top">
       <div className="container">
-        <Link className="navbar-brand" to={"/sign-in"}>PeerXP</Link>
+        <Link className="navbar-brand" to={"/"}>PeerXP</Link>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto">
     
@@ -61,7 +61,7 @@ return(  <Router>
     <div className="auth-wrapper">
       <div className="auth-inner">
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Ticket} />
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={Signup} />
           <Route path="/ticket" component={Ticket} />

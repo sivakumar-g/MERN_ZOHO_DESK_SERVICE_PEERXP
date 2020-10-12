@@ -43,7 +43,7 @@ function Signup(props) {
               dispatch(registeruseraction(res.data));
               if (res.data) {
                alert('Sign UP Successfull');
-               props.history.push('/sign-up')
+               props.history.push('/sign-in')
            } else {
                alert('Error˝')
            }
