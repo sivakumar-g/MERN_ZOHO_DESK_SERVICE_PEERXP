@@ -34,7 +34,7 @@ const logout = () =>
     console.log("mounted");
   }, [islogin])
 
-*/
+*/ 
 
 if(localStorage.getItem('token'))
 return(  <Router>
@@ -47,6 +47,9 @@ return(  <Router>
     
             <li className="nav-item" >
               <Link className="nav-link" to={"/"}  onClick={logout}>Logout</Link>
+            </li>
+            <li className="nav-item" >
+              <Link className="nav-link" to={"/ticket"}  onClick={Ticket}>Raise Ticket</Link>
             </li>
 
           </ul>

@@ -31,12 +31,13 @@ const onSubmitHandler = (event) => {
  
        axios.post('http://localhost:4000/users/authenticate', dataToSubmit)
        .then(res=>
-           {console.log(res.data.success);
+           {// console.log(res.data.success);
                dispatch(loginuseraction(res.data));
                if (res.data) {
                 alert('Logged In Successfull');
-                console.log(res.data.token);
+                // console.log(res.data.token);
                 localStorage.setItem('token',res.data.token);
+                window.location.reload(true);
                 props.history.push('/ticket')
             } else {
                 alert('Error˝')
