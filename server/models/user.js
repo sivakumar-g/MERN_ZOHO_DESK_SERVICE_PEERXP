@@ -11,12 +11,17 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true 
-     
+      
   },
   password: {
     type: String,
     required: true
+  },
+  contactId: {
+    type: String,
+   required: true
   }
+
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

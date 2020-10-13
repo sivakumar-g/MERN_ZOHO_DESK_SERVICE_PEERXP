@@ -18,6 +18,7 @@
     "nodemon": "^2.0.4",
     "passport": "*",
     "passport-jwt": "*",
+    "request": "^2.88.2",
     "rxjs": "^6.5.5"
   },
   "author": "sivakumar",

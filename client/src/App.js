@@ -15,7 +15,8 @@ import Ticket from './components/Ticket';
 import { useState,useContext } from 'react';
 import { useEffect } from 'react';
  import {useSelector} from 'react-redux';
-
+import Mytickets from './components/Mytickets';
+   
 
 
 function App(props) {
@@ -46,12 +47,15 @@ return(  <Router>
           <ul className="navbar-nav ml-auto">
     
             <li className="nav-item" >
+              <Link className="nav-link" to={"/ticket"}  onClick={Ticket}>Raise-issue</Link>
+            </li>
+            <li className="nav-item" >
               <Link className="nav-link" to={"/"}  onClick={logout}>Logout</Link>
             </li>
             <li className="nav-item" >
-              <Link className="nav-link" to={"/ticket"}  onClick={Ticket}>Raise Ticket</Link>
+              <Link className="nav-link" to={"/Mytickets"}  onClick={Mytickets}>Mytickets</Link>
             </li>
-
+          
           </ul>
         </div>
       </div>
@@ -65,6 +69,7 @@ return(  <Router>
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={Signup} />
           <Route path="/ticket" component={Ticket} />
+          <Route path="/mytickets" component={Mytickets} />
         </Switch>
       </div>
     </div>

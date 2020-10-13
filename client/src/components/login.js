@@ -26,7 +26,8 @@ const onSubmitHandler = (event) => {
 
     let dataToSubmit = {
         email: Email,
-        password: Password
+        password: Password,
+        
     }
  
        axios.post('http://localhost:4000/users/authenticate', dataToSubmit)
@@ -37,7 +38,8 @@ const onSubmitHandler = (event) => {
                 alert('Logged In Successfull');
                 // console.log(res.data.token);
                 localStorage.setItem('token',res.data.token);
-                window.location.reload(true);
+                localStorage.setItem('user',res.data.success);
+                //window.location.reload(true);
                 props.history.push('/ticket')
             } else {
                 alert('Error˝')
@@ -47,7 +49,7 @@ const onSubmitHandler = (event) => {
 
 
 
-}
+}//submit
         return (
             <form  onSubmit={onSubmitHandler}>
                 <h3>Sign In</h3>
@@ -56,14 +58,14 @@ const onSubmitHandler = (event) => {
                 <div className="form-group">
                     <label>Email address</label>
                     <input type="email" className="form-control" placeholder="Enter email" 
-                    value={Email} onChange={onEmailHandler}
+                    value={Email} onChange={onEmailHandler} required
                     />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" className="form-control" placeholder="Enter password" 
-                    value={Password} onChange={onPasswordHandler}
+                    value={Password} onChange={onPasswordHandler} required
                     />
                 </div>
 

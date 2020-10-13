@@ -1,7 +1,7 @@
 
 
 import React, { Component ,useState} from "react";
-import Axios from 'axios'
+import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { loginUser,registerUser } from '../actions/users';
@@ -11,7 +11,7 @@ function Ticket(props) {
 
     const dispatch = useDispatch();
 
-    const [department, setdepartment] =  useState("")
+    const [department, setdepartment] =  useState("PWSLab Devops Support")
 const [category, setcategory] =  useState("")
 const [subject, setsubject] =  useState("")
 const [description, setdescription] =  useState("")
@@ -33,20 +33,29 @@ const ondepartmentHandler = (event) => {
     }
     const onSubmitHandler = (event) => {
         event.preventDefault();
+       let  tokenc= localStorage.getItem('token')
+        let dataToSubmit = {
+            
+                subject : subject,
+                //departmentId : "7189000000051431",
+                  token : tokenc,
+                  category:category,
+                  description:description
 
-        let body = {
+                
            
         }
-        /*
-        dispatch(ticket(body))
-            .then(response => {
-                if (response.payload.success) {
-                    props.history.push("/login")
-                } else {
-                    alert("Failed to sign up")
-                }
+        axios.post('http://localhost:4000/users/create-ticket', dataToSubmit)
+        .then(res=>
+            { console.log(res.data);
+                if(res.data)
+            {
+                alert("Ticket Created" )
+            }
+               // dispatch(loginuseraction(res.data));
+             
             })
-            */
+        
     } // submit
 
 
@@ -59,21 +68,21 @@ const ondepartmentHandler = (event) => {
             <div className="form-group">
                 <label> Department</label>
                 <input type="text" className="form-control" placeholder="Department" 
-                 value={department} onChange={ ondepartmentHandler }
+                 value={department} // onChange={ ondepartmentHandler }
                 />
             </div>
 
            
             <div className="form-group">
                 <label>Category </label>
-                <input type="email" className="form-control" placeholder="Category" 
-                value={category} onChange={oncategoryHandler}/>
+                <input type="text" className="form-control" placeholder="Category" 
+                value={category} onChange={oncategoryHandler}      />
             </div>
 
             <div className="form-group">
-                <label>Subject</label>
+                <label>Subject *</label>
                 <input type="text" className="form-control" placeholder="Subject" 
-                value={subject} onChange={onsubjectHandler}/>
+                value={subject} onChange={onsubjectHandler} required />
             </div>
 
 

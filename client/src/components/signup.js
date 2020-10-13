@@ -41,7 +41,7 @@ function Signup(props) {
       .then(res=>
           {console.log(res.data.success);
               dispatch(registeruseraction(res.data));
-              if (res.data) {
+              if (res.data.success) {
                alert('Sign UP Successfull');
                props.history.push('/sign-in')
            } else {
@@ -62,7 +62,7 @@ function Signup(props) {
             <div className="form-group">
                 <label> name</label>
                 <input type="text" className="form-control" placeholder="name" 
-                 value={Name} onChange={onNameHandler}
+                 value={Name} onChange={onNameHandler} required
                 />
             </div>
 
@@ -70,14 +70,14 @@ function Signup(props) {
             <div className="form-group">
                 <label>Email address</label>
                 <input type="email" className="form-control" placeholder="Enter email" 
-                value={Email}  onChange={onEmailHandler}
+                value={Email}  onChange={onEmailHandler}  required
                 />
             </div>
 
             <div className="form-group">
                 <label>Password</label>
                 <input type="password" className="form-control" placeholder="Enter password" 
-                value={Password} onChange={onPasswordHandler}/>
+                value={Password} onChange={onPasswordHandler}  required />
             </div>
 
             <button type="submit" className="btn btn-primary btn-block">Sign Up</button>

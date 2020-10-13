@@ -5,16 +5,13 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database'); 
 const User = require('../models/user'); 
 const auth = require('../middlewares/auth')
+const Request = require('request');
 
 // Register
 router.post('/register', (req, res, next) => { 
  
 
-  let newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  });
+  
   const cemail = req.body.email;
   User.getUserByEmail(cemail, (err, user) => {
     if(user){
@@ -23,22 +20,77 @@ router.post('/register', (req, res, next) => {
     }
 else
 {
-  User.addUser(newUser, (err, user) => {
-    if(err){
-      console.log("err at register");
- 
-      res.json({success: false,msg: 'registration success'});
-    } else {
-      console.log("registration success");
 
-      res.json({success: true});
-    }
+  Request.post({
+    "url" :"https://desk.zoho.in/api/v1/contacts",
+    "headers": {"Authorization": "ca2e56a68d01e393c0e4c5aa5638729c",
+  "orgId" : "60001280952"
+  },//headers
+    "body" : JSON.stringify({lastName:req.body.name})
+  }//url
+  
+  ,(err,response,body)=>{
+  
+    if(!err)
+    {console.log("before body");
+    var obj = JSON.parse(response.body)
+     // console.log(obj[0]._id);
+     console.log(obj.id );
+     console.log("after body");
+     
+    
+    {//normal 
+  
+  let newUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    contactId: obj.id
+  
   });
+    User.addUser(newUser, (err, user) => {
+      if(err){
+        console.log("err at register");
+   
+        res.json({success: false,msg: 'registration failed'});
+      } else {
+        console.log("registration success");
+  
+        res.json({success: true ,  user});
+      }
+    });
+  }//normal
+    
+    }//!err
+  });//url callback
+  
 
-}
-  })
 
-});
+
+ 
+}//else
+
+
+  })//getUserByEmail
+
+});//register
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
@@ -70,7 +122,8 @@ console.log("success");
           user: {
             id: user._id,
             name: user.name,
-             email: user.email 
+             email: user.email,
+             contactId : user.contactId
           }
         });
       } else {
@@ -85,8 +138,8 @@ console.log("success");
 
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.body.token;// req.headers.authorization;
- console.log('authenticatre');
-  console.log(authHeader);
+ //console.log('authenticatre');
+  // console.log(authHeader);
   if (authHeader) {
       const token = authHeader.split(' ')[1];
 
@@ -107,21 +160,99 @@ const authenticateJWT = (req, res, next) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
 // Protected API END POINT only for signed in users
 
-router.post('/ticket',authenticateJWT,(req, res ) => { 
+router.post('/create-ticket',authenticateJWT,(req, res ) => { 
+  console.log("create-ticket")
+console.log(req.user.data._id);
+console.log("hi new ticket");
+console.log(typeof(req.user));
 
+//console.log(req.body.testname);
   // console.log(req.headers.authorization);
-  res.json({user: req.user});
+ // res.json({user: req.user}); 
 
-});
+
+Request.post({
+  "url" :"https://desk.zoho.in/api/v1/tickets",
+  "headers": {"Authorization": "ca2e56a68d01e393c0e4c5aa5638729c",
+"orgId" : "60001280952"
+},//headers
+"body" : JSON.stringify({subject:req.body.subject,departmentId: 7189000000051431 , contactId:req.user.data.contactId})
+  }//url
+
+,(err,response,body)=>{
+
+  if(!err)
+  {console.log(body);
+    //console.log(response);
+    console.log(req.user);
+    res.json({user:response.body});  }//!err
+
+    else{res.json(err);}
+});//url callback
+
+
+console.log("ticket ended");
+})//tickets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Protected API END POINT only for signed in users tp manage their tickets
 
-router.get('/get-tickets',authenticateJWT,(req,res)=>{
+router.get('/mytickets',authenticateJWT,(req,res)=>{
 //api call using req.email to zoho desk api
   res.json("zoho desk tickets");
-});
+
+
+  Request.get({
+    "url" :"https://desk.zoho.in/api/v1/contacts/${req.user.data.contactId}/tickets?include=departments,team,assignee",
+    "headers": {"Authorization": "ca2e56a68d01e393c0e4c5aa5638729c",
+  "orgId" : "60001280952"
+  },//headers
+    }//url
+  
+  ,(err,response,body)=>{
+  
+    if(!err)
+    {console.log(body);
+      //console.log(response);
+      console.log(req.user);
+      res.json({user:response.body});  }//!err
+  });//url callback
+  
+  
+
+
+});//route
 
 module.exports = router;
 
