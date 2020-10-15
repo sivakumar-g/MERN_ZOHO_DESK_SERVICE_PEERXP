@@ -39,7 +39,7 @@ const onSubmitHandler = (event) => {
                 // console.log(res.data.token);
                 localStorage.setItem('token',res.data.token);
                 localStorage.setItem('user',res.data.success);
-                //window.location.reload(true);
+                window.location.reload(true);
                 props.history.push('/ticket')
             } else {
                 alert('Error˝')

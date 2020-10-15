@@ -15,7 +15,11 @@ import Ticket from './components/Ticket';
 import { useState,useContext } from 'react';
 import { useEffect } from 'react';
  import {useSelector} from 'react-redux';
-import Mytickets from './components/Mytickets';
+import Gettickets from './components/gettickets';
+
+//import Mytickets from './components/Mytickets';
+//import gettickets from './components/gettickets';
+
    
 
 
@@ -30,17 +34,12 @@ const logout = () =>
 
     props.history.push('/sign-in')
   }
-/*
-  useEffect(() => {
-    console.log("mounted");
-  }, [islogin])
 
-*/ 
 
 if(localStorage.getItem('token'))
 return(  <Router>
   <div className="App">
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light ">  
       <div className="container">
         <Link className="navbar-brand" to={"/"}>PeerXP</Link>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -53,13 +52,13 @@ return(  <Router>
               <Link className="nav-link" to={"/"}  onClick={logout}>Logout</Link>
             </li>
             <li className="nav-item" >
-              <Link className="nav-link" to={"/Mytickets"}  onClick={Mytickets}>Mytickets</Link>
+              <Link className="nav-link" to={"/gettickets"} >Get_tickets</Link>
             </li>
-          
+         
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>  
 
 
     <div className="auth-wrapper">
@@ -69,7 +68,7 @@ return(  <Router>
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={Signup} />
           <Route path="/ticket" component={Ticket} />
-          <Route path="/mytickets" component={Mytickets} />
+          <Route path="/gettickets" component={Gettickets} />
         </Switch>
       </div>
     </div>

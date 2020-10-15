@@ -4,11 +4,16 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const Request = require('request');
 
 const config = require('./config/database' , { useNewUrlParser: true },  {useUnifiedTopology: true});
 
 // Connect To Database
-mongoose.connect(config.database);
+  mongoose.connect(config.database);
+
+
+// mongoose.connect('mongodb://localhost/users_text');
+
 
 // On Connection
 mongoose.connection.on('connected', () => {
@@ -17,16 +22,18 @@ mongoose.connection.on('connected', () => {
 
 // On Error
 mongoose.connection.on('error', (err) => {
-  console.log('Database error: '+err);
+  // console.log('Database error: '+err);
+  console.log('Database error ')
 });
 
 
-
+// mongoose.connection.close();
 
 
 const app = express();
 
 const users = require('./routes/users' );
+const tickets = require('./routes/tickets' );
 
 // Port Number
 const port = 4000;
@@ -51,6 +58,7 @@ require('./config/passport')(passport);
 
 
 app.use('/users', users);
+app.use('/tickets', tickets);
 
 // Index Route
 app.get('/', (req, res) => {

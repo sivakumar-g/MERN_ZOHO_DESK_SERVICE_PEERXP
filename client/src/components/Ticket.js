@@ -1,6 +1,6 @@
 
 
-import React, { Component ,useState} from "react";
+import React, { Component ,useState,useEffect} from "react";
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { loginUser,registerUser } from '../actions/users';
 
  
 function Ticket(props) {
+    useEffect(() => {
+        console.log("ticket component")
+    }, [])
 
     const dispatch = useDispatch();
 
@@ -16,6 +19,7 @@ const [category, setcategory] =  useState("")
 const [subject, setsubject] =  useState("")
 const [description, setdescription] =  useState("")
    
+
 const ondepartmentHandler = (event) => {
         setdepartment(event.currentTarget.value)
     }
@@ -99,3 +103,34 @@ const ondepartmentHandler = (event) => {
     );
 }
 export default withRouter(Ticket)
+
+
+
+
+
+
+
+
+
+/*
+
+  
+const getTickets = () => {
+
+        
+    let  tokenc= localStorage.getItem('token'); 
+    const dataToSubmit = {
+              token : tokenc}
+
+
+ axios.get('http://localhost:4000/users/mytickets', dataToSubmit)
+    .then(res=>
+        { console.log(res.data);
+            if(res.data)
+        {
+            alert("Mytickets")
+        }
+     })
+}
+
+*/
