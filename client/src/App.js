@@ -16,6 +16,7 @@ import { useState,useContext } from 'react';
 import { useEffect } from 'react';
  import {useSelector} from 'react-redux';
 import Gettickets from './components/gettickets';
+import Home from './components/home'
 
 //import Mytickets from './components/Mytickets';
 //import gettickets from './components/gettickets';
@@ -36,7 +37,7 @@ const logout = () =>
   }
 
 
-if(localStorage.getItem('token'))
+if(localStorage.getItem('token') )
 return(  <Router>
   <div className="App">
     <nav className="navbar navbar-expand-lg navbar-light ">  
@@ -52,7 +53,7 @@ return(  <Router>
               <Link className="nav-link" to={"/"}  onClick={logout}>Logout</Link>
             </li>
             <li className="nav-item" >
-              <Link className="nav-link" to={"/gettickets"} >Get_tickets</Link>
+              <Link className="nav-link" to={"/gettickets"} >Get-Tickets</Link>
             </li>
          
           </ul>
@@ -64,7 +65,7 @@ return(  <Router>
     <div className="auth-wrapper">
       <div className="auth-inner">
         <Switch>
-          <Route exact path="/" component={Ticket} />
+          <Route exact path="/" component={Home} />
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={Signup} />
           <Route path="/ticket" component={Ticket} />
@@ -101,7 +102,7 @@ else
       <div className="auth-wrapper">
         <div className="auth-inner">
           <Switch>
-            <Route exact path='/' component={Login} />
+            <Route exact path='/' component={Home} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={Signup} />
             <Route path="/ticket" component={Ticket} />

@@ -49,12 +49,14 @@ const ondepartmentHandler = (event) => {
                 
            
         }
-        axios.post('http://localhost:4000/users/create-ticket', dataToSubmit)
+        axios.post('http://localhost:4000/tickets/create-ticket', dataToSubmit)
         .then(res=>
             { console.log(res.data);
                 if(res.data)
             {
                 alert("Ticket Created" )
+                props.history.push('/')
+
             }
                // dispatch(loginuseraction(res.data));
              

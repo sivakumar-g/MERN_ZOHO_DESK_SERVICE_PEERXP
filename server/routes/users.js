@@ -13,7 +13,7 @@ const Request = require('request');
 router.post('/register', (req, res, next) => { 
  
 
-  
+  console.log("register entry");
   const cemail = req.body.email;
   User.getUserByEmail(cemail, (err, user) => {
     if(user){
@@ -21,7 +21,7 @@ router.post('/register', (req, res, next) => {
       res.json({success: false,msg: 'Duplicate registration '});
     }
 else
-{
+{ console.log("else block")
 
   Request.post({
     "url" :"https://desk.zoho.in/api/v1/contacts",
@@ -37,7 +37,7 @@ else
     {console.log("before body");
     var obj = JSON.parse(response.body)
      // console.log(obj[0]._id);
-     console.log(obj.id );
+    // console.log(obj.id );
      console.log("after body");
      
     
@@ -98,10 +98,12 @@ else
 router.post('/authenticate', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+  console.log(password)
   //console.log(username);
   console.log('hi post login');
   User.getUserByEmail(email, (err, user) => {
-    if(err) throw err;
+    console.log("hi user login")
+    if(err) {throw err; console.log("err")}
     if(!user){
       console.log("failure");
       return res.json({success: false, msg: 'User not found'});
@@ -111,6 +113,7 @@ router.post('/authenticate', (req, res, next) => {
       console.log("compare password");
       if(err) throw err;
       var token = 0;
+      console.log("summa")
       if(isMatch){
  
 const token = jwt.sign({ data:user}, config.secret);
@@ -141,7 +144,7 @@ console.log("success");
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.body.token;// req.headers.authorization;
  //console.log('authenticatre');
-  // console.log(authHeader);
+   console.log(authHeader);
   if (authHeader) {
       const token = authHeader.split(' ')[1];
 

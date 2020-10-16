@@ -24,7 +24,7 @@ function Signup(props) {
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
     }
-
+ 
     
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -43,7 +43,7 @@ function Signup(props) {
               dispatch(registeruseraction(res.data));
               if (res.data.success) {
                alert('Sign UP Successfull');
-               props.history.push('/sign-in')
+               props.history.push('/sign-in') 
            } else {
                alert('Error˝')
            }
@@ -55,8 +55,7 @@ function Signup(props) {
 
 
     return (
-        <form onSubmit={onSubmitHandler}
-        >
+        <form onSubmit={onSubmitHandler}>
             <h3>Sign Up</h3>
 
             <div className="form-group">

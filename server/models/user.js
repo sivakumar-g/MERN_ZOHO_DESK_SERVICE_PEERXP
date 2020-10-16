@@ -37,6 +37,7 @@ module.exports.getUserByUsername = function(username, callback){
 */
 
 module.exports.getUserByEmail = function(email, callback){
+  // console.log(email + "at model")
   const query = {email: email}
   User.findOne(query, callback);
 }
